@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Leaflet sits inside a rounded container in both apps — clip its tiles too */
+.leaflet-container {
+  border-radius: inherit;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid #1F6F78;
+  outline-offset: 2px;
+}

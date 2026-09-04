@@ -1,0 +1,43 @@
+# Render Blueprint — deploys the whole system with one click.
+# In Render: New -> Blueprint -> point at this repo -> it reads this file
+# and creates all three services below automatically.
+#
+# After the first deploy, copy the backend service's URL into:
+#   1. this file's SIMULATOR "API_BASE" env var, and
+#   2. the frontend service's "VITE_API_BASE" env var
+# then redeploy (Render does this automatically on git push).
+
+services:
+  - type: web
+    name: geoshield-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        sync: false   # set this to your Render Postgres connection string once created
+
+  - type: worker
+    name: geoshield-sensor-simulator
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    dockerCommand: python simulate_sensors.py --interval 5
+    plan: free
+    envVars:
+      - key: API_BASE
+        value: https://geoshield-api.onrender.com   # <-- replace after first deploy
+
+  - type: web
+    name: geoshield-frontend
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_BASE
+        value: https://geoshield-api.onrender.com   # <-- replace after first deploy
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

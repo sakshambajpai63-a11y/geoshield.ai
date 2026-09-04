@@ -1,0 +1,35 @@
+# Local, full-stack dev: `docker compose up --build`
+# Citizen portal:  http://localhost:5173
+# Officer console: http://localhost:5173/officer
+# API docs:        http://localhost:8000/docs
+
+services:
+  api:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - PORT=8000
+
+  simulator:
+    build: ./backend
+    command: python simulate_sensors.py --interval 5
+    depends_on:
+      - api
+    environment:
+      - API_BASE=http://api:8000
+
+  frontend:
+    image: node:20-slim
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE=http://localhost:8000
+    depends_on:
+      - api
