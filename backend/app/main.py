@@ -104,6 +104,7 @@ async def ingest_reading(reading: schemas.ReadingIn, db: Session = Depends(get_d
         await manager.broadcast("alert", {
             "id": alert.id, "sensor_id": sensor.id, "sensor_name": sensor.name,
             "corridor": sensor.corridor, "level": label, "message_en": alert.message_en,
+           "created_at": str(alert.created_at), "issued_by": alert.issued_by,
         })
 
     await manager.broadcast("reading", {
