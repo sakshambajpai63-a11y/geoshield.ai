@@ -157,6 +157,43 @@ export default function CitizenPortal() {
           )}
         </div>
 
+        {/* Emergency helplines */}
+        <div className="mb-5 rounded-xl border border-mist-200 bg-white p-4">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-500">
+            Emergency helplines
+          </h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            
+              href="tel:112"
+              className="rounded-lg border border-mist-200 p-3 text-center transition hover:bg-mist-50"
+            >
+              <div className="text-lg font-bold text-teal-700">112</div>
+              <div className="text-xs text-neutral-500">National Emergency</div>
+            </a>
+            
+              href="tel:1070"
+              className="rounded-lg border border-mist-200 p-3 text-center transition hover:bg-mist-50"
+            >
+              <div className="text-lg font-bold text-teal-700">1070</div>
+              <div className="text-xs text-neutral-500">Disaster Mgmt (MHA)</div>
+            </a>
+            
+              href="tel:100"
+              className="rounded-lg border border-mist-200 p-3 text-center transition hover:bg-mist-50"
+            >
+              <div className="text-lg font-bold text-teal-700">100</div>
+              <div className="text-xs text-neutral-500">Police</div>
+            </a>
+            
+              href="tel:108"
+              className="rounded-lg border border-mist-200 p-3 text-center transition hover:bg-mist-50"
+            >
+              <div className="text-lg font-bold text-teal-700">108</div>
+              <div className="text-xs text-neutral-500">Ambulance</div>
+            </a>
+          </div>
+        </div>
+
         {/* Map */}
         <div className="mb-5 h-80 overflow-hidden rounded-xl border border-mist-200 sm:h-96">
           <RiskMap readings={readings} />
