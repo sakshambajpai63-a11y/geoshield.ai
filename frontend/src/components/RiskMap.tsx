@@ -31,14 +31,7 @@ export function RiskMap({
 
   return (
     <MapContainer center={center} zoom={7} className="h-full w-full" scrollWheelZoom>
-      <TileLayer
-        attribution='&copy; OpenStreetMap contributors'
-        url={
-          dark
-            ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-            : "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-        }
-      />
+      <TileLayer attribution='&copy;OpenStreetMap contributors' url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"/>
       {readings.map((r) => (
         <CircleMarker
           key={r.sensor_id}
